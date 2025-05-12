@@ -1,98 +1,152 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="#" target="blank"><img src="https://i.imgur.com/HrmRgm6.png" width="200" alt="Netflix Clone Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<h1 align="center">Netflix Clone Backend</h1>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<p align="center">A robust backend application for a Netflix clone built with NestJS, featuring a clean architecture design with domain-driven development principles.</p>
 
-## Description
+## Table of Contents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. [Installation](#installation)
+2. [Architecture](#architecture)
+   - [Domain Layer](#domain-layer)
+   - [Application Layer](#application-layer)
+   - [Infrastructure Layer](#infrastructure-layer)
+3. [Features](#features)
+4. [API Endpoints](#api-endpoints)
+5. [Development](#development)
 
-## Project setup
+## Installation
+
+### Prerequisites
+
+- Node.js (v18+)
+- npm or yarn
+
+### Setup
+
+1. Clone the repository:
+
+```bash
+$ git clone https://github.com/nightkuzan/backend_netflix.git
+$ cd netflix_web/backend_netflix
+```
+
+2. Install dependencies:
 
 ```bash
 $ npm install
 ```
 
-## Compile and run the project
+3. Configure environment variables:
 
 ```bash
-# development
-$ npm run start
+# Create .env file
+$ cp .env.example .env
 
-# watch mode
+# Edit the .env file with your configuration
+$ nano .env
+```
+
+4. Start the development server:
+
+```bash
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Run tests
+The server should now be running on http://localhost:3001 (or the port specified in your .env file).
 
-```bash
-# unit tests
-$ npm run test
+## Architecture
 
-# e2e tests
-$ npm run test:e2e
+This project is built using a clean architecture approach with domain-driven design principles, consisting of three main layers:
 
-# test coverage
-$ npm run test:cov
+### Domain Layer
+
+The domain layer contains the core business logic and entities:
+
+- **Entities**: Business objects like `Show` that represent the core data structures
+- **Repositories**: Interfaces defining data access methods
+- **Value Objects**: Immutable objects like `ShowType` (movie/series)
+
+```
+src/domain/
+├── entities/
+│   └── show.entity.ts
+└── repositories/
+    └── show.repository.ts
 ```
 
-## Deployment
+### Application Layer
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+The application layer coordinates application logic between the domain and infrastructure:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- **Modules**: NestJS modules that group related components
+- **Services**: Application services implementing business logic
+- **Controllers**: Handling HTTP requests and responses
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+src/application/
+└── modules/
+    └── show/
+        ├── show.controller.ts
+        ├── show.module.ts
+        └── show.service.ts
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Infrastructure Layer
 
-## Resources
+The infrastructure layer handles external concerns:
 
-Check out a few resources that may come in handy when working with NestJS:
+- **Repositories**: Concrete implementations of repository interfaces
+- **Databases**: Database connections and configurations
+- **External Services**: Third-party APIs and services
+- **Mock Data**: Mock implementations for testing and development
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```
+src/infrastructure/
+├── controllers/
+├── database/
+├── mocks/
+├── modules/
+├── repositories/
+└── services/
+```
 
-## Support
+## Features
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Content Management
 
-## Stay in touch
+- **Show Catalog**: Browse and search for movies and TV shows
+- **Content Filtering**: Filter content by type (movie/series), genre, and more
+- **Content Details**: View detailed information about shows including cast, ratings, etc.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Mock Data Support
+
+- **Mock Repository Pattern**: Easily switch between real and mock data sources
+- **Mock Data Generation**: Generate realistic mock data for development and testing
+- **Static Factory Methods**: Create show instances with specific attributes
+
+### Multi-language Support
+
+- **Content Translations**: Support for content titles and descriptions in multiple languages
+- **Genre Translations**: Translation support for genres
+
+### API Features
+
+- **RESTful API**: Standard REST API for all operations
+- **Filtering & Sorting**: Advanced filtering and sorting options
+- **Pagination**: Support for paginated results
+
+## API Endpoints
+
+### Shows
+
+```
+GET /api/shows              # Get all shows
+GET /api/shows/:id          # Get a show by ID
+```
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is [MIT licensed](LICENSE).
