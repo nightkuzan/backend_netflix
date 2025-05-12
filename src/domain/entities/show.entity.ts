@@ -10,6 +10,11 @@ export class Show {
   genres: string[];
   releaseYear: number;
   rating: number;
+  genreTranslations?: {
+    [key: string]: {
+      [genreName: string]: string;
+    };
+  };
   duration?: string;
   seasons?: number;
   language: string;

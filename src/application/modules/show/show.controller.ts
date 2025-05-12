@@ -11,8 +11,8 @@ export class ShowController {
     return this.showService.getAll();
   }
 
-//   @Get(':id')
-//   async getShowById(@Param('id') id: string): Promise<Show> {
-//     return this.showService.findById(id);
-//   }
+  @Get(':id')
+  async getShowById(@Param('id') id: string): Promise<Show | null> {
+    return this.showService.getById(id);
+  }
 }
